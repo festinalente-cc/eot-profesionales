@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Herramientas · GCEOT</title>
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-root="../" data-page="herramientas">
+  <div id="site-header"></div>
+  <main id="main">
+    <div class="container">
+      <div class="page-head"><h1>Herramientas</h1>
+      <p class="muted">Todo se calcula en su navegador. No se guarda ni se envía ningún dato. Los puntos de corte y sus fuentes están en <a href="../evidencia/#criterios">Evidencia</a>.</p></div>
+
+      <h2 id="cas">Puntaje de actividad clínica (CAS)</h2>
+      <form id="cas-form">
+        <fieldset><legend>Marque lo presente</legend><div id="cas-base"></div></fieldset>
+        <label class="opt"><input type="checkbox" id="cas-followup"><span>Visita de seguimiento: añadir los tres ítems de cambio en 1 a 3 meses</span></label>
+        <fieldset id="cas-fu-box" hidden><legend>Cambios desde la visita anterior</legend><div id="cas-fu"></div></fieldset>
+      </form>
+      <div id="cas-out" class="result" aria-live="polite"></div>
+
+      <h2 id="gravedad">Gravedad (EUGOGO)</h2>
+      <form id="sev-form">
+        <fieldset><legend>Hallazgos</legend>
+          <label class="opt"><input type="checkbox" id="sv-lid"><span>Retracción palpebral ≥ 2 mm</span></label>
+          <label class="opt"><input type="checkbox" id="sv-soft"><span>Compromiso moderado o grave de tejidos blandos</span></label>
+          <label class="opt"><input type="checkbox" id="sv-exo"><span>Exoftalmos ≥ 3 mm sobre el valor normal para etnia y sexo</span></label>
+          <label class="field" style="margin:.6rem 0 .4rem">Diplopía
+            <select id="sv-dip" style="width:100%;max-width:26rem">
+              <option value="no">Sin diplopía</option>
+              <option value="intermitente">Intermitente (con fatiga o al despertar)</option>
+              <option value="inconstante">Inconstante (en posiciones extremas de la mirada)</option>
+              <option value="constante">Constante (en posición primaria o de lectura)</option>
+            </select></label>
+        </fieldset>
+        <fieldset><legend>Amenaza para la visión</legend>
+          <label class="opt"><input type="checkbox" id="sv-don"><span>Neuropatía óptica distiroidea</span></label>
+          <label class="opt"><input type="checkbox" id="sv-cor"><span>Ruptura corneal</span></label>
+        </fieldset>
+      </form>
+      <div id="sev-out" class="result" aria-live="polite"></div>
+      <p class="small muted" style="margin-top:.6rem">El consenso del grupo llama «grave» a lo que EUGOGO denomina «con amenaza para la visión». Con el resultado, continúe en la <a href="../ruta/">ruta de tratamiento</a>.</p>
+
+      <h2 id="dosis">Dosis acumulada de metilprednisolona intravenosa</h2>
+      <form id="dose-form">
+        <div class="actions no-print" style="margin:0 0 1rem">
+          <button type="button" class="btn btn-ghost" id="p-std">Esquema estándar (4,5 g)</button>
+          <button type="button" class="btn btn-ghost" id="p-alta">Esquema de dosis alta (7,5 g)</button>
+        </div>
+        <fieldset><legend>Ciclo</legend>
+          <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+            <label class="field">Infusiones, fase 1<input type="number" id="d-n1" min="0" step="1"></label>
+            <label class="field">mg por infusión<input type="number" id="d-g1" min="0" step="50"></label>
+            <label class="field">Infusiones, fase 2<input type="number" id="d-n2" min="0" step="1"></label>
+            <label class="field">mg por infusión<input type="number" id="d-g2" min="0" step="50"></label>
+          </div>
+          <label class="field">Dosis ya recibida antes de este ciclo (g)<input type="number" id="d-prior" min="0" step="0.25" value="0"></label>
+        </fieldset>
+      </form>
+      <div id="dose-out" class="result" aria-live="polite"></div>
+      <p class="small muted" style="margin-top:.6rem">Esquemas y máximo de 8 g por ciclo según EUGOGO 2021. Las infusiones son semanales.</p>
+    </div>
+    <script type="module" src="../assets/js/herramientas.js"></script>
+  </main>
+  <div id="site-footer"></div>
+  <script type="module" src="../assets/js/site.js"></script>
+</body>
+</html>
