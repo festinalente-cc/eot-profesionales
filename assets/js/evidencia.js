@@ -14,4 +14,4 @@ $('matrix').innerHTML = ids.map((id) => `<tr><th scope="row">${INTERVENTIONS[id]
 $('scenario-list').innerHTML = [1, 2, 3, 4].map((c) => `<h3>Categoría ${c}. ${CATEGORIES[c]}</h3><ul>${order.filter((s) => SCENARIOS[s].cat === c).map((s) => `<li><strong>${s}.</strong> ${SCENARIOS[s].text}</li>`).join('')}</ul>`).join('');
 
 const ST = { publicado: 'Publicado por el grupo', guia: 'Guía; pendiente de revisión por el grupo', grupo: 'Dato del grupo (nov. 2026)' };
-$('criteria').innerHTML = CRITERIA.map((c) => `<tr><th scope="row">${c.label}</th><td>${c.value}</td><td>${c.source ? `<a href="${SOURCES[c.source].url}">${SOURCES[c.source].cite}</a>` : '—'}</td><td><span class="tag${c.status === 'publicado' ? '' : ' draft'}">${ST[c.status]}</span></td><td>${c.used}</td></tr>`).join('');
+$('criteria').innerHTML = CRITERIA.map((c) => `<tr><th scope="row">${c.label}</th><td>${c.value}</td><td>${c.source ? (SOURCES[c.source].url ? `<a href="${SOURCES[c.source].url}">${SOURCES[c.source].cite}</a>` : SOURCES[c.source].cite) : '—'}</td><td><span class="tag${c.status === 'publicado' ? '' : ' draft'}">${ST[c.status]}</span></td><td>${c.used}</td></tr>`).join('');

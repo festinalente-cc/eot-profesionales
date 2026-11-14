@@ -46,3 +46,28 @@ export function cumulativeDose(blocks, prior = 0) {
   const total = Math.round((course + prior) * 1000) / 1000;
   return { course: Math.round(course * 1000) / 1000, total, exceeds: total > MP_MAX_G };
 }
+
+// GO-QoL (Terwee et al., 1998): 16 preguntas, 8 de función visual y 8 de apariencia.
+// Cada respuesta vale 1 (sí, mucho), 2 (sí, un poco) o 3 (no, nada); null = sin respuesta o no aplica.
+// Puntaje 0-100 por subescala: (suma - n) / (2 n) x 100, con n = preguntas respondidas. Más alto = mejor.
+export const GOQOL_CHANGE = 8;
+function goqolScale(items) {
+  if (!Array.isArray(items) || items.length !== 8) throw new Error('Cada subescala tiene 8 preguntas');
+  const a = items.filter((v) => v !== null && v !== undefined);
+  for (const v of a) if (![1, 2, 3].includes(v)) throw new Error('Respuesta no válida');
+  const n = a.length;
+  if (n === 0) return { n, score: null };
+  const sum = a.reduce((t, v) => t + v, 0);
+  return { n, sum, score: Math.round(((sum - n) / (2 * n)) * 1000) / 10 };
+}
+export function goqol(visual, appearance) {
+  const v = goqolScale(visual), a = goqolScale(appearance);
+  const n = v.n + a.n;
+  const total = n === 0 ? null : Math.round((((v.sum || 0) + (a.sum || 0) - n) / (2 * n)) * 1000) / 10;
+  return { visual: v, appearance: a, total, n };
+}
+/** Cambio entre dos mediciones de una subescala. */
+export function goqolChange(before, after) {
+  const d = Math.round((after - before) * 10) / 10;
+  return { delta: d, meaningful: Math.abs(d) >= GOQOL_CHANGE, direction: d > 0 ? 'mejora' : d < 0 ? 'empeora' : 'igual' };
+}

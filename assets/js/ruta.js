@@ -33,7 +33,7 @@ function guides(branch) {
   const g = GUIDES[branch] || [];
   if (!g.length) return '';
   return `<h2>Qué dicen las guías</h2>${g.map((x) => `<div class="note${x.diff ? ' warn' : ''}"><p><strong>${x.src === 'eugogo' ? 'EUGOGO 2021' : x.src === 'ataeta' ? 'ATA/ETA 2022' : 'Consenso del grupo'}.</strong> ${x.text}${x.verified ? '' : ' <span class="tag draft">Por verificar contra el texto de la guía</span>'}</p></div>`).join('')}
-  <p class="small muted">Fuentes: ${Object.values(SOURCES).filter((s) => s.cite.includes('EUGOGO') || s.cite.includes('ATA')).map((s) => `<a href="${s.url}">${s.cite}</a>`).join(' ')}</p>`;
+  <p class="small muted">Fuentes: ${Object.values(SOURCES).filter((s) => s.url && (s.cite.includes('EUGOGO') || s.cite.includes('ATA'))).map((s) => `<a href="${s.url}">${s.cite}</a>`).join(' ')}</p>`;
 }
 
 function render() {

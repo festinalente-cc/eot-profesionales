@@ -25,7 +25,7 @@ document.getElementById('site-footer').innerHTML = `
   <footer class="site-footer"><div class="container">
     <p><strong>Grupo Colombiano de Enfermedad Ocular Tiroidea (GCEOT).</strong> Contenido para profesionales de la salud. Apoya la decisión clínica y no la sustituye. Este sitio no recoge ni envía datos.</p>
     <p>Financiación y conflictos de interés: ver <a href="${root}grupo/">El grupo</a>. Secretaría técnica: Festina Lente.</p>
-    <p>Versión 0.1 · noviembre de 2026</p>
+    <p>Versión 0.2 · noviembre de 2026</p>
   </div></footer>`;
 
 // Selector de tema: sistema → claro → oscuro.

@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Herramientas · GCEOT</title>
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-  <script src="../assets/js/theme.js?v=3"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3">
+  <script src="../assets/js/theme.js?v=4"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css?v=4">
 </head>
 <body data-root="../" data-page="herramientas">
   <div id="site-header"></div>
@@ -64,10 +64,27 @@
       </form>
       <div id="dose-out" class="result" aria-live="polite"></div>
       <p class="small muted" style="margin-top:.6rem">Esquemas y máximo de 8 g por ciclo según EUGOGO 2021. Las infusiones son semanales.</p>
+
+      <h2 id="calidad-de-vida">Calidad de vida (GO-QoL)</h2>
+      <p>Calcula el puntaje del cuestionario GO-QoL a partir de las respuestas del paciente. El paciente responde el cuestionario oficial; aquí solo se registra la respuesta a cada pregunta, por su número.</p>
+      <div class="note warn"><p><strong>Por definir con el grupo.</strong> Esta herramienta no reproduce el texto de las preguntas: el cuestionario tiene autores y versiones validadas por idioma. Falta confirmar qué versión en español se usará en Colombia y las condiciones para reproducirla.</p></div>
+      <form id="goqol-form">
+        <fieldset><legend>Función visual (preguntas 1 a 8)</legend><div id="goqol-v" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))"></div></fieldset>
+        <fieldset><legend>Apariencia (preguntas 9 a 16)</legend><div id="goqol-a" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))"></div></fieldset>
+        <fieldset><legend>Comparar con una medición anterior (opcional)</legend>
+          <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))">
+            <label class="field">Función visual previa (0 a 100)<input type="number" id="goqol-pv" min="0" max="100" step="0.1"></label>
+            <label class="field">Apariencia previa (0 a 100)<input type="number" id="goqol-pa" min="0" max="100" step="0.1"></label>
+          </div>
+        </fieldset>
+        <button type="reset" class="btn btn-ghost no-print">Borrar respuestas</button>
+      </form>
+      <div id="goqol-out" class="result" aria-live="polite" style="margin-top:1rem"></div>
+      <p class="small muted" style="margin-top:.6rem">Cada subescala va de 0 (mayor impacto) a 100 (sin impacto). Las preguntas sin respuesta o que no aplican, como conducir para quien no conduce, no cuentan. Terwee CB, et al. Br J Ophthalmol. 1998;82(7):773-779.</p>
     </div>
-    <script type="module" src="../assets/js/herramientas.js?v=3"></script>
+    <script type="module" src="../assets/js/herramientas.js?v=4"></script>
   </main>
   <div id="site-footer"></div>
-  <script type="module" src="../assets/js/site.js?v=3"></script>
+  <script type="module" src="../assets/js/site.js?v=4"></script>
 </body>
 </html>
