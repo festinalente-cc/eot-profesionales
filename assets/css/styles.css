@@ -137,3 +137,7 @@ td.c { text-align: center; font-weight: 700; }
 .matrix td.c { white-space: nowrap; font-size: .85rem; }
 .hero-arc { right: -150px; width: 420px; height: 420px; }
 .site-header .theme-btn { font-size: .8rem; font-weight: 500; padding: .25rem .6rem; color: var(--muted); border-color: var(--border); }
+
+/* Tema oscuro azul verdoso (tono tomado del iris de portada) */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #031c22; --card: #0c2730; --border: #16373f; --border-strong: #24505a; --teal-100: #12414a; --teal-50: #0d3039; --ina-bg: #14313a; --apr: #a9d0f5; --apr-bg: #1f4368; } }
+:root[data-theme="dark"] { --bg: #031c22; --card: #0c2730; --border: #16373f; --border-strong: #24505a; --teal-100: #12414a; --teal-50: #0d3039; --ina-bg: #14313a; --apr: #a9d0f5; --apr-bg: #1f4368; }
