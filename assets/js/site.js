@@ -18,11 +18,28 @@ document.getElementById('site-header').innerHTML = `
     <nav class="nav" aria-label="Principal">
       ${NAV.map(([id, label, href]) => `<a href="${root}${href}"${id === page ? ' aria-current="page"' : ''}>${label}</a>`).join('')}
     </nav>
+    <button type="button" class="theme-btn" id="theme-btn"></button>
   </div></header>`;
 
 document.getElementById('site-footer').innerHTML = `
   <footer class="site-footer"><div class="container">
-    <p><strong>Grupo Colombiano de Enfermedad Ocular Tiroidea (GCEOT).</strong> Contenido para profesionales de la salud. Apoya la decisión clínica y no la sustituye. Este sitio no recoge ni almacena datos.</p>
+    <p><strong>Grupo Colombiano de Enfermedad Ocular Tiroidea (GCEOT).</strong> Contenido para profesionales de la salud. Apoya la decisión clínica y no la sustituye. Este sitio no recoge ni envía datos.</p>
     <p>Financiación y conflictos de interés: ver <a href="${root}grupo/">El grupo</a>. Secretaría técnica: Festina Lente.</p>
     <p>Versión 0.1 · noviembre de 2026</p>
   </div></footer>`;
+
+// Selector de tema: sistema → claro → oscuro.
+const THEMES = ['system', 'light', 'dark'];
+const THEME_LABEL = { system: 'del sistema', light: 'claro', dark: 'oscuro' };
+const themeBtn = document.getElementById('theme-btn');
+function paintTheme() {
+  const t = window.eotTheme ? window.eotTheme.get() : 'system';
+  themeBtn.textContent = `Tema: ${THEME_LABEL[t]}`;
+  themeBtn.setAttribute('aria-label', `Tema actual: ${THEME_LABEL[t]}. Pulse para cambiar.`);
+}
+themeBtn.addEventListener('click', () => {
+  const t = window.eotTheme.get();
+  window.eotTheme.set(THEMES[(THEMES.indexOf(t) + 1) % THEMES.length]);
+  paintTheme();
+});
+if (window.eotTheme) paintTheme(); else themeBtn.hidden = true;
