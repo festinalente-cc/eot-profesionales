@@ -147,3 +147,17 @@ td.c { text-align: center; font-weight: 700; }
 .copy-btn { padding: .45rem .9rem; font-size: .95rem; }
 .copy-msg { font-size: .9rem; color: var(--muted); }
 .copy-fallback { width: 100%; white-space: pre-wrap; font: inherit; font-size: .9rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .8rem; margin: 0; }
+
+/* Recorrido integrado */
+.progress { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; padding: .6rem 0; margin: 0 0 1rem; position: sticky; top: 0; background: var(--bg); z-index: 2; border-bottom: 1px solid var(--border); }
+.progress li { border: 1px solid var(--border-strong); border-radius: 999px; padding: .25rem .8rem; font-size: .88rem; font-weight: 600; }
+.progress a { text-decoration: none; color: var(--ink); }
+.progress span { font-weight: 500; color: var(--muted); margin-left: .3rem; }
+.progress li[data-state="ok"] { background: var(--nec-bg); border-color: var(--nec); }
+.progress li[data-state="ok"] span { color: var(--nec); }
+.qol-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .2rem 1rem; }
+.measures { margin: .2rem 0 1rem; }
+.chip.pend { border: 2px dashed var(--border-strong); color: var(--muted); }
+h3.branch { font-size: 1.25rem; margin-top: .4rem; }
+.copy-missing { font-size: .92rem; color: var(--muted); border: 2px dashed var(--border-strong); border-radius: var(--radius); padding: .6rem .9rem; margin: .8rem 0 1rem; }
+fieldset { scroll-margin-top: 4rem; }

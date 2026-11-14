@@ -1,6 +1,7 @@
 import { CAS_ITEMS, CAS_FOLLOWUP, cas, severity, cumulativeDose, MP_PRESETS, MP_MAX_G, goqol, goqolChange, GOQOL_CHANGE, casState, severityState } from '../../src/logic/tools.js';
 import { casSummary, severitySummary, goqolSummary } from '../../src/logic/summary.js';
 import { copyButton } from './copiar.js';
+import { GOQOL_ITEMS, GOQOL_VERSION, GOQOL_NOTICE } from '../../src/logic/goqol-items.js';
 const $ = (id) => document.getElementById(id);
 const texts = { cas: null, sev: null, goqol: null };
 const copies = {};
@@ -60,7 +61,7 @@ $('p-alta').addEventListener('click', () => setPreset('alta'));
 setPreset('estandar');
 
 // GO-QoL
-const qSelect = (i) => `<label class="field">Pregunta ${i}<select id="gq-${i}" style="width:100%"><option value="">Sin respuesta o no aplica</option><option value="1">Sí, mucho</option><option value="2">Sí, un poco</option><option value="3">No, nada</option></select></label>`;
+const qSelect = (i) => `<label class="field">${GOQOL_ITEMS[i - 1] ? `${i}. ${GOQOL_ITEMS[i - 1]}` : `Pregunta ${i}`}<select id="gq-${i}" style="width:100%"><option value="">Sin respuesta o no aplica</option><option value="1">Sí, mucho</option><option value="2">Sí, un poco</option><option value="3">No, nada</option></select></label>`;
 $('goqol-v').innerHTML = [1, 2, 3, 4, 5, 6, 7, 8].map(qSelect).join('');
 $('goqol-a').innerHTML = [9, 10, 11, 12, 13, 14, 15, 16].map(qSelect).join('');
 function renderGoqol() {
@@ -86,3 +87,5 @@ function renderGoqol() {
 $('goqol-form').addEventListener('input', renderGoqol);
 $('goqol-form').addEventListener('reset', () => setTimeout(renderGoqol));
 renderGoqol();
+
+$('goqol-notice').textContent = GOQOL_NOTICE + (GOQOL_VERSION ? ` ${GOQOL_VERSION}.` : '');

@@ -6,15 +6,15 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Herramientas · GCEOT</title>
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-  <script src="../assets/js/theme.js?v=9"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css?v=9">
+  <script src="../assets/js/theme.js?v=10"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css?v=10">
 </head>
 <body data-root="../" data-page="herramientas">
   <div id="site-header"></div>
   <main id="main">
     <div class="container">
       <div class="page-head"><h1>Herramientas</h1>
-      <p class="muted">Todo se calcula en su navegador. No se guarda ni se envía ningún dato. Los puntos de corte y sus fuentes están en <a href="../evidencia/#criterios">Evidencia</a>.</p></div>
+      <p class="muted">Para evaluar a un paciente de principio a fin, use la <a href="../ruta/">evaluación y ruta</a>, que reúne estas medidas en un solo recorrido. Todo se calcula en su navegador. No se guarda ni se envía ningún dato. Los puntos de corte y sus fuentes están en <a href="../evidencia/#criterios">Evidencia</a>.</p></div>
 
       <h2 id="cas">Puntaje de actividad clínica (CAS)</h2>
       <form id="cas-form">
@@ -68,8 +68,8 @@
       <p class="small muted" style="margin-top:.6rem">Esquemas y máximo de 8 g por ciclo según EUGOGO 2021. Las infusiones son semanales.</p>
 
       <h2 id="calidad-de-vida">Calidad de vida (GO-QoL)</h2>
-      <p>Calcula el puntaje del cuestionario GO-QoL a partir de las respuestas del paciente. El paciente responde el cuestionario oficial; aquí solo se registra la respuesta a cada pregunta, por su número.</p>
-      <div class="note warn"><p><strong>Por definir con el grupo.</strong> Esta herramienta no reproduce el texto de las preguntas: el cuestionario tiene autores y versiones validadas por idioma. Falta confirmar qué versión en español se usará en Colombia y las condiciones para reproducirla.</p></div>
+      <p id="goqol-notice"></p>
+      <div class="note warn"><p><strong>Texto de las preguntas pendiente.</strong> Existe versión en español del cuestionario y una traducción aplicada en pacientes argentinos (Arch Endocrinol Metab, 2017). Las preguntas se mostrarán aquí cuando el grupo confirme la versión y la autorización para reproducirla; mientras tanto se registran por número.</p></div>
       <form id="goqol-form">
         <fieldset><legend>Función visual (preguntas 1 a 8)</legend><div id="goqol-v" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))"></div></fieldset>
         <fieldset><legend>Apariencia (preguntas 9 a 16)</legend><div id="goqol-a" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))"></div></fieldset>
@@ -84,9 +84,9 @@
       <div id="goqol-out" class="result" aria-live="polite" style="margin-top:1rem"></div>
       <p class="small muted" style="margin-top:.6rem">Cada subescala va de 0 (mayor impacto) a 100 (sin impacto). Las preguntas sin respuesta o que no aplican, como conducir para quien no conduce, no cuentan. Terwee CB, et al. Br J Ophthalmol. 1998;82(7):773-779.</p>
     </div>
-    <script type="module" src="../assets/js/herramientas.js?v=9"></script>
+    <script type="module" src="../assets/js/herramientas.js?v=10"></script>
   </main>
   <div id="site-footer"></div>
-  <script type="module" src="../assets/js/site.js?v=9"></script>
+  <script type="module" src="../assets/js/site.js?v=10"></script>
 </body>
 </html>

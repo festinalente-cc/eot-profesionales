@@ -4,58 +4,69 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Ruta de tratamiento · GCEOT</title>
+  <title>Evaluación y ruta de tratamiento · GCEOT</title>
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-  <script src="../assets/js/theme.js?v=9"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css?v=9">
+  <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body data-root="../" data-page="ruta">
   <div id="site-header"></div>
   <main id="main">
     <div class="container">
-      <div class="page-head"><h1>Ruta de tratamiento</h1>
-      <p class="muted">Manejo médico de la enfermedad ocular tiroidea, según el consenso RAND/UCLA del grupo y las guías EUGOGO 2021 y ATA/ETA 2022. Para profesionales de la salud: apoya la decisión clínica y no la sustituye.</p></div>
-      <div class="note"><p><strong>Antes de decidir, registre tres medidas:</strong> <a href="../herramientas/#cas">actividad (CAS)</a>, <a href="../herramientas/#gravedad">gravedad</a> y <a href="../herramientas/#calidad-de-vida">calidad de vida (GO-QoL)</a>. La calidad de vida no cambia la rama de esta ruta: sirve como punto de partida para valorar la respuesta y para conversar con el paciente sobre lo que más le afecta.</p></div>
-      <form id="ruta-form" class="no-print">
-        <fieldset><legend>1. Actividad</legend>
-          <label class="opt"><input type="radio" name="active" value="si"><span>Activa: CAS ≥ 3 de 7</span></label>
-          <label class="opt"><input type="radio" name="active" value="no"><span>Inactiva: CAS &lt; 3</span></label>
-          <p class="small muted" style="margin:.4rem 0 0">¿No tiene el puntaje? <a href="../herramientas/#cas">Calcule el CAS</a>.</p>
+      <div class="page-head"><h1>Evaluación y ruta de tratamiento</h1>
+      <p class="muted">Un solo recorrido: actividad, gravedad, calidad de vida y ruta según el consenso RAND/UCLA del grupo, con una nota breve para la historia clínica. Apoya la decisión clínica y no la sustituye.</p></div>
+      <ol class="progress no-print" aria-label="Progreso">
+        <li id="p-cas"><a href="#s-cas">1. Actividad</a> <span></span></li>
+        <li id="p-sev"><a href="#s-sev">2. Gravedad</a> <span></span></li>
+        <li id="p-qol"><a href="#s-qol">3. Calidad de vida</a> <span></span></li>
+        <li id="p-gc" hidden><a href="#s-gc">4. Glucocorticoides</a> <span></span></li>
+      </ol>
+      <form id="flow" autocomplete="off">
+        <fieldset id="s-cas"><legend>1. Actividad: CAS</legend>
+          <p class="small muted">Marque lo presente.</p>
+          <div id="cas-items"></div>
+          <label class="opt confirm"><input type="checkbox" id="cas-ok"><span><strong>Evalué los 7 ítems.</strong> Los no marcados están ausentes.</span></label>
         </fieldset>
-        <fieldset><legend>2. Gravedad</legend>
-          <label class="opt"><input type="radio" name="severity" value="leve"><span>Leve</span></label>
-          <label class="opt"><input type="radio" name="severity" value="moderada"><span>Moderada a grave, sin neuropatía óptica ni perforación corneal</span></label>
-          <label class="opt"><input type="radio" name="severity" value="neuropatia"><span>Con neuropatía óptica</span></label>
-          <label class="opt"><input type="radio" name="severity" value="perforacion"><span>Con perforación corneal</span></label>
-          <p class="small muted" style="margin:.4rem 0 0">El consenso llama «grave» a la enfermedad con neuropatía óptica o complicación corneal mayor, que EUGOGO denomina «con amenaza para la visión». <a href="../herramientas/#gravedad">Clasifique la gravedad</a>.</p>
+        <fieldset id="s-sev"><legend>2. Gravedad (EUGOGO)</legend>
+          <label class="opt"><input type="checkbox" id="sv-lid"><span>Retracción palpebral ≥ 2 mm</span></label>
+          <label class="opt"><input type="checkbox" id="sv-soft"><span>Compromiso moderado o grave de tejidos blandos</span></label>
+          <label class="opt"><input type="checkbox" id="sv-exo"><span>Exoftalmos ≥ 3 mm sobre el valor normal para etnia y sexo</span></label>
+          <label class="field" style="margin:.6rem 0 .4rem">Diplopía
+            <select id="sv-dip" style="width:100%;max-width:26rem">
+              <option value="no">Sin diplopía</option>
+              <option value="intermitente">Intermitente (con fatiga o al despertar)</option>
+              <option value="inconstante">Inconstante (en posiciones extremas de la mirada)</option>
+              <option value="constante">Constante (en posición primaria o de lectura)</option>
+            </select></label>
+          <p class="small" style="margin:.8rem 0 .2rem"><strong>Amenaza para la visión</strong></p>
+          <label class="opt"><input type="checkbox" id="sv-don"><span>Neuropatía óptica distiroidea</span></label>
+          <label class="opt"><input type="checkbox" id="sv-cor"><span>Perforación corneal</span></label>
+          <label class="opt confirm"><input type="checkbox" id="sv-ok"><span><strong>Evalué todos los hallazgos.</strong> Los no marcados están ausentes.</span></label>
         </fieldset>
-        <div id="q-mod" hidden>
-          <fieldset><legend>3. Respuesta a glucocorticoides intravenosos</legend>
+        <fieldset id="s-qol"><legend>3. Calidad de vida: GO-QoL</legend>
+          <p class="small muted" id="qol-notice"></p>
+          <p class="small"><strong>Función visual</strong></p>
+          <div id="qol-v" class="grid qol-grid"></div>
+          <p class="small" style="margin-top:.8rem"><strong>Apariencia</strong></p>
+          <div id="qol-a" class="grid qol-grid"></div>
+          <label class="opt confirm"><input type="checkbox" id="qol-ok"><span><strong>El paciente respondió el cuestionario.</strong> Las preguntas en blanco no aplican.</span></label>
+        </fieldset>
+        <fieldset id="s-gc" hidden><legend>4. Glucocorticoides</legend>
+          <div id="q-refractory">
+            <p class="small"><strong>Respuesta a glucocorticoides intravenosos</strong></p>
             <label class="opt"><input type="radio" name="refractory" value="no"><span>Sin tratamiento previo, o con buena respuesta</span></label>
             <label class="opt"><input type="radio" name="refractory" value="si"><span>Sin respuesta o con respuesta parcial tras un ciclo de 12 semanas</span></label>
-          </fieldset>
-          <fieldset><legend>4. Glucocorticoides sistémicos</legend>
-            <label class="opt"><input type="radio" name="gcContra" value="no"><span>Sin contraindicación</span></label>
-            <label class="opt"><input type="radio" name="gcContra" value="si"><span>Contraindicación absoluta o intolerancia documentada</span></label>
-          </fieldset>
-        </div>
-        <div id="q-don" hidden>
-          <fieldset><legend>3. Glucocorticoides intravenosos</legend>
-            <label class="opt"><input type="radio" name="donContra" value="no"><span>Sin contraindicación</span></label>
-            <label class="opt"><input type="radio" name="donContra" value="si"><span>Contraindicación absoluta</span></label>
-          </fieldset>
-          <fieldset><legend>4. Respuesta</legend>
-            <label class="opt"><input type="radio" name="donRefractory" value="no"><span>Aún sin tratar o en respuesta</span></label>
-            <label class="opt"><input type="radio" name="donRefractory" value="si"><span>Refractaria a glucocorticoides intravenosos</span></label>
-          </fieldset>
-        </div>
-        <button type="reset" class="btn btn-ghost">Reiniciar</button>
+          </div>
+          <p class="small" style="margin-top:.8rem"><strong>Glucocorticoides sistémicos</strong></p>
+          <label class="opt"><input type="radio" name="gcContra" value="no"><span>Sin contraindicación</span></label>
+          <label class="opt"><input type="radio" name="gcContra" value="si"><span>Contraindicación absoluta o intolerancia documentada</span></label>
+        </fieldset>
+        <button type="reset" class="btn btn-ghost no-print">Reiniciar</button>
       </form>
       <section id="ruta-out" aria-live="polite"></section>
     </div>
-    <script type="module" src="../assets/js/ruta.js?v=9"></script>
+    <script type="module" src="../assets/js/ruta.js"></script>
   </main>
   <div id="site-footer"></div>
-  <script type="module" src="../assets/js/site.js?v=9"></script>
+  <script type="module" src="../assets/js/site.js"></script>
 </body>
 </html>

@@ -67,3 +67,31 @@ export function goqolSummary(r) {
   const part = (name, s) => (s.score === null ? `${name} sin respuestas` : `${name} ${f(s.score)} (${s.n} de 8 respondidas)`);
   return `GO-QoL (0 a 100; mayor es mejor): ${part('función visual', r.visual)}; ${part('apariencia', r.appearance)}; total ${f(r.total)}.`;
 }
+
+// Nota breve única para la historia clínica: actividad, gravedad, calidad de vida y ruta.
+const SHORT_REG = { registro: 'con registro en Colombia', 'sin-indicacion': 'sin indicación aprobada en Colombia' };
+const shortDrug = (id) => INTERVENTIONS[id].short.charAt(0).toLowerCase() + INTERVENTIONS[id].short.slice(1) + (INTERVENTIONS[id].colombia ? ` (${SHORT_REG[INTERVENTIONS[id].colombia]})` : '');
+const num = (x) => String(x).replace('.', ',');
+
+/** @param {object} ev resultado de evaluate()  @param {string[]} findings hallazgos de gravedad marcados */
+export function fullSummary(ev, findings = []) {
+  if (!ev || !ev.canCopy) return null;
+  const r = ev.result;
+  const casTxt = ev.cas.status === 'completa' ? `CAS ${ev.cas.score}/${ev.cas.max} (${ev.cas.active ? 'activa' : 'inactiva'})` : 'CAS sin completar por urgencia';
+  const level = ev.urgent ? 'con amenaza para la visión' : ev.sv.level === 'leve' ? 'leve' : 'moderada a grave';
+  const sevTxt = `gravedad EUGOGO ${level}` + (findings.length ? ` (${findings.join(', ')})` : '');
+  const qolTxt = ev.steps.qol ? `GO-QoL función visual ${ev.q.visual.score === null ? 'sin datos' : num(ev.q.visual.score)}, apariencia ${ev.q.appearance.score === null ? 'sin datos' : num(ev.q.appearance.score)}` : 'GO-QoL no aplicado por urgencia';
+  const lines = [`EOT. ${casTxt}; ${sevTxt}; ${qolTxt}.`];
+  if (ev.needsGc) {
+    const gc = [];
+    if (typeof ev.input.refractory === 'boolean') gc.push(ev.input.refractory ? 'refractaria a GC IV' : 'sin refractariedad a GC IV');
+    if (typeof ev.input.gcContra === 'boolean') gc.push(ev.input.gcContra ? 'con contraindicación a GC' : 'sin contraindicación a GC');
+    if (gc.length) lines.push(`Glucocorticoides: ${gc.join('; ')}.`);
+  }
+  lines.push(`Clasificación: ${TITLES[r.branch]}.`);
+  if (r.scope === 'guias') lines.push('Fuera del alcance del consenso del grupo; referencia: guía EUGOGO 2021.');
+  else lines.push('Consenso RAND/UCLA (Cabarcas-Solano 2026). ' + r.steps.map((s) => `${s.label}: ${s.drugs ? s.drugs.map(shortDrug).join(', ') : s.items.map((x) => x.charAt(0).toLowerCase() + x.slice(1)).join(', ')}`).join('. ') + '.');
+  if (ev.both) lines.push('Coexisten neuropatía óptica y perforación corneal: combinación no evaluada por el consenso.');
+  lines.push('Apoyo a la decisión; no sustituye el juicio clínico. Fuente: GCEOT.');
+  return lines.join('\n');
+}
