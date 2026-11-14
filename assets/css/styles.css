@@ -141,3 +141,9 @@ td.c { text-align: center; font-weight: 700; }
 /* Tema oscuro azul verdoso (tono tomado del iris de portada) */
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #031c22; --card: #0c2730; --border: #16373f; --border-strong: #24505a; --teal-100: #12414a; --teal-50: #0d3039; --ina-bg: #14313a; --apr: #a9d0f5; --apr-bg: #1f4368; } }
 :root[data-theme="dark"] { --bg: #031c22; --card: #0c2730; --border: #16373f; --border-strong: #24505a; --teal-100: #12414a; --teal-50: #0d3039; --ina-bg: #14313a; --apr: #a9d0f5; --apr-bg: #1f4368; }
+
+/* Copiar para la historia clínica */
+.copy-row { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; margin: .8rem 0 1rem; }
+.copy-btn { padding: .45rem .9rem; font-size: .95rem; }
+.copy-msg { font-size: .9rem; color: var(--muted); }
+.copy-fallback { width: 100%; white-space: pre-wrap; font: inherit; font-size: .9rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .8rem; margin: 0; }

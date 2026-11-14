@@ -1,5 +1,11 @@
 import { CAS_ITEMS, CAS_FOLLOWUP, cas, severity, cumulativeDose, MP_PRESETS, MP_MAX_G, goqol, goqolChange, GOQOL_CHANGE, casState, severityState } from '../../src/logic/tools.js';
+import { casSummary, severitySummary, goqolSummary } from '../../src/logic/summary.js';
+import { copyButton } from './copiar.js';
 const $ = (id) => document.getElementById(id);
+const texts = { cas: null, sev: null, goqol: null };
+const copies = {};
+for (const k of ['cas', 'sev', 'goqol']) { copies[k] = copyButton(() => texts[k]); copies[k].el.hidden = true; $(`${k}-out`).after(copies[k].el); }
+function setText(k, t) { texts[k] = t; copies[k].reset(); copies[k].el.hidden = !t; }
 const check = (name, i, text) => `<label class="opt"><input type="checkbox" name="${name}" value="${i}"><span>${text}</span></label>`;
 
 // CAS
@@ -11,6 +17,8 @@ function renderCas() {
   const marks = (name, n) => Array.from({ length: n }, (_, i) => document.querySelector(`input[name="${name}"][value="${i}"]`).checked);
   const r = casState($('cas-ok').checked, marks('cas', 7), fu ? marks('casfu', 3) : null);
   const out = $('cas-out');
+  const mk = marks('cas', 7), mf = fu ? marks('casfu', 3) : [];
+  setText('cas', casSummary(r, [...CAS_ITEMS.filter((_, i) => mk[i]), ...CAS_FOLLOWUP.filter((_, i) => mf[i])]));
   if (r.status === 'pendiente') { out.className = 'result pending'; out.textContent = 'Pendiente de evaluación. Marque lo presente y confirme que evaluó todos los ítems.'; return; }
   if (r.status === 'parcial') { out.className = 'result pending'; out.textContent = `${r.score} de ${r.max} marcados. Confirme que evaluó todos los ítems para ver la interpretación.`; return; }
   out.className = `result ${r.active ? 'N' : 'I'}`;
@@ -23,6 +31,8 @@ function renderSev() {
   const c = (id) => $(id).checked;
   const r = severityState($('sv-ok').checked, { lidRetraction2mm: c('sv-lid'), softTissueModerate: c('sv-soft'), exophthalmos3mm: c('sv-exo'), diplopia: $('sv-dip').value, opticNeuropathy: c('sv-don'), cornealBreakdown: c('sv-cor') });
   const out = $('sev-out'); out.style.cssText = '';
+  const dip = $('sv-dip').value;
+  setText('sev', severitySummary(r, [c('sv-lid') && 'retracción palpebral ≥ 2 mm', c('sv-soft') && 'compromiso moderado o grave de tejidos blandos', c('sv-exo') && 'exoftalmos ≥ 3 mm sobre lo normal', dip !== 'no' && `diplopía ${dip}`, c('sv-don') && 'neuropatía óptica distiroidea', c('sv-cor') && 'ruptura corneal'].filter(Boolean)));
   if (r.status === 'pendiente') { out.className = 'result pending'; out.textContent = 'Pendiente de evaluación. Marque los hallazgos y confirme que los evaluó todos.'; return; }
   if (r.status === 'parcial') { out.className = 'result pending'; out.textContent = `${r.count} de 4 criterios marcados. Confirme que evaluó todos los hallazgos para ver la clasificación.`; return; }
   const text = { leve: 'Leve', 'moderada-grave': 'Moderada a grave', 'amenaza-vision': 'Con amenaza para la visión: urgencia oftalmológica' }[r.level];
@@ -56,6 +66,7 @@ $('goqol-a').innerHTML = [9, 10, 11, 12, 13, 14, 15, 16].map(qSelect).join('');
 function renderGoqol() {
   const get = (from) => Array.from({ length: 8 }, (_, k) => { const v = $(`gq-${from + k}`).value; return v === '' ? null : Number(v); });
   const r = goqol(get(1), get(9));
+  setText('goqol', goqolSummary(r));
   const f = (x) => x.toLocaleString('es-CO', { maximumFractionDigits: 1 });
   const out = $('goqol-out');
   if (r.n === 0) { out.className = 'result I'; out.textContent = 'Registre las respuestas para ver el puntaje.'; return; }

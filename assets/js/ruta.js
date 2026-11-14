@@ -2,6 +2,11 @@ import { route } from '../../src/logic/route.js';
 import { INTERVENTIONS, COLOMBIA, CATEGORIES, SCENARIOS, ratingsFor } from '../../src/logic/scenarios.js';
 import { GUIDES } from '../../src/logic/guides.js';
 import { SOURCES } from '../../src/logic/criteria.js';
+import { routeSummary } from '../../src/logic/summary.js';
+import { copyButton } from './copiar.js';
+
+let lastSummary = null;
+const copy = copyButton(() => lastSummary);
 
 const form = document.getElementById('ruta-form');
 const out = document.getElementById('ruta-out');
@@ -46,12 +51,14 @@ function render() {
   if (severity === 'neuropatia') { input.refractory = bool(val('donRefractory')); input.gcContra = bool(val('donContra')); }
   if (sight && input.active === undefined) input.active = true; // la urgencia no espera al CAS
   const r = route(input);
+  lastSummary = routeSummary(input, r);
+  copy.reset();
 
   if (r.branch === 'incompleta') { out.innerHTML = '<p class="muted">Responda las preguntas para ver la ruta.</p>'; return; }
   let html = `<h2>${TITLES[r.branch]}</h2>`;
   if (r.scope === 'guias') {
     html += `<div class="note"><p><strong>Fuera del alcance del consenso.</strong> El consenso del grupo evaluó solo el manejo médico de la enfermedad activa (CAS ≥ 3) moderada a grave. Para esta situación la ruta remite a las guías.</p></div>${guides(r.branch)}`;
-    out.innerHTML = html; return;
+    out.innerHTML = html; out.querySelector('h2').after(copy.el); return;
   }
   if (sight) html += '<div class="note urgent"><p><strong>Urgencia oftalmológica.</strong> Requiere valoración inmediata por oftalmología.</p></div>';
   html += '<div class="legend"><span class="N">Necesaria</span><span class="A">Apropiada en casos seleccionados</span></div>';
@@ -64,6 +71,7 @@ function render() {
   html += `<h2>Escenarios del consenso en esta rama</h2><p class="muted">Categoría ${r.category}: ${CATEGORIES[r.category]}. Busque el escenario más parecido a su paciente; las calificaciones varían entre escenarios.</p>${r.scenarios.map(scenarioBlock).join('')}`;
   html += guides(r.branch);
   out.innerHTML = html;
+  out.querySelector('.legend').before(copy.el);
 }
 form.addEventListener('change', render);
 form.addEventListener('reset', () => setTimeout(render));
