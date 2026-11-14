@@ -3,7 +3,7 @@ import { INTERVENTIONS, COLOMBIA, CATEGORIES, SCENARIOS, ratingsFor } from '../.
 import { GUIDES } from '../../src/logic/guides.js';
 import { SOURCES } from '../../src/logic/criteria.js';
 import { CAS_ITEMS } from '../../src/logic/tools.js';
-import { GOQOL_ITEMS, GOQOL_VERSION, GOQOL_NOTICE } from '../../src/logic/goqol-items.js';
+import { GOQOL_ITEMS, GOQOL_VERSION, GOQOL_NOTICE, GOQOL_URL } from '../../src/logic/goqol-items.js';
 import { evaluate } from '../../src/logic/flow.js';
 import { fullSummary } from '../../src/logic/summary.js';
 import { copyButton } from './copiar.js';
@@ -28,7 +28,7 @@ $('cas-items').innerHTML = CAS_ITEMS.map((t, i) => `<label class="opt"><input ty
 const qSel = (i) => `<label class="field">${GOQOL_ITEMS[i - 1] ? `${i}. ${GOQOL_ITEMS[i - 1]}` : `Pregunta ${i}`}<select id="gq-${i}" style="width:100%"><option value="">Sin respuesta o no aplica</option><option value="1">Sí, mucho</option><option value="2">Sí, un poco</option><option value="3">No, nada</option></select></label>`;
 $('qol-v').innerHTML = [1, 2, 3, 4, 5, 6, 7, 8].map(qSel).join('');
 $('qol-a').innerHTML = [9, 10, 11, 12, 13, 14, 15, 16].map(qSel).join('');
-$('qol-notice').textContent = GOQOL_NOTICE + (GOQOL_VERSION ? ` ${GOQOL_VERSION}.` : '');
+$('qol-notice').innerHTML = `${GOQOL_NOTICE}${GOQOL_VERSION ? ` ${GOQOL_VERSION}.` : ''} <a href="${GOQOL_URL}" target="_blank" rel="noopener">Descargar el formulario en español en el sitio de EUGOGO</a>.`;
 
 const radio = (name) => { const v = form.querySelector(`input[name="${name}"]:checked`)?.value; return v === 'si' ? true : v === 'no' ? false : undefined; };
 function read() {

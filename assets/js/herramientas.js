@@ -1,7 +1,7 @@
 import { CAS_ITEMS, CAS_FOLLOWUP, cas, severity, cumulativeDose, MP_PRESETS, MP_MAX_G, goqol, goqolChange, GOQOL_CHANGE, casState, severityState } from '../../src/logic/tools.js';
 import { casSummary, severitySummary, goqolSummary } from '../../src/logic/summary.js';
 import { copyButton } from './copiar.js';
-import { GOQOL_ITEMS, GOQOL_VERSION, GOQOL_NOTICE } from '../../src/logic/goqol-items.js';
+import { GOQOL_ITEMS, GOQOL_VERSION, GOQOL_NOTICE, GOQOL_URL } from '../../src/logic/goqol-items.js';
 const $ = (id) => document.getElementById(id);
 const texts = { cas: null, sev: null, goqol: null };
 const copies = {};
@@ -88,4 +88,4 @@ $('goqol-form').addEventListener('input', renderGoqol);
 $('goqol-form').addEventListener('reset', () => setTimeout(renderGoqol));
 renderGoqol();
 
-$('goqol-notice').textContent = GOQOL_NOTICE + (GOQOL_VERSION ? ` ${GOQOL_VERSION}.` : '');
+$('goqol-notice').innerHTML = `${GOQOL_NOTICE}${GOQOL_VERSION ? ` ${GOQOL_VERSION}.` : ''} <a href="${GOQOL_URL}" target="_blank" rel="noopener">Descargar el formulario en español en el sitio de EUGOGO</a>.`;
