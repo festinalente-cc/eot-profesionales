@@ -9,8 +9,16 @@ const order = [1, 2, 8, 11, 4, 5, 7, 9, 12, 3, 6, 10, 14, 13];
 const ids = Object.keys(INTERVENTIONS);
 const by = Object.fromEntries(order.map((s) => [s, Object.fromEntries(ratingsFor(s).map((r) => [r.id, r]))]));
 const L = { N: 'necesaria', A: 'apropiada', U: 'incierta', D: 'incierta por desacuerdo', I: 'inapropiada' };
-$('matrix-head').innerHTML = `<tr><th scope="col">Intervención</th>${order.map((s) => `<th scope="col" class="c" title="${SCENARIOS[s].text}">${s}</th>`).join('')}</tr>`;
-$('matrix').innerHTML = ids.map((id) => `<tr><th scope="row">${INTERVENTIONS[id].short}</th>${order.map((s) => { const r = by[s][id]; return `<td class="c ${r.cls}" title="Escenario ${s}: ${L[r.cls]}, mediana ${r.median}">${r.median}${r.cls === 'N' ? '*' : r.cls === 'D' ? '†' : ''}</td>`; }).join('')}</tr>`).join('');
+const filter = $('matrix-filter');
+filter.insertAdjacentHTML('beforeend', [1, 2, 3, 4].map((c) => `<option value="${c}">Categoría ${c}. ${CATEGORIES[c]}</option>`).join(''));
+function renderMatrix() {
+  const cat = Number(filter.value);
+  const cols = order.filter((s) => !cat || SCENARIOS[s].cat === cat);
+  $('matrix-head').innerHTML = `<tr><th scope="col">Intervención</th>${cols.map((s) => `<th scope="col" class="c" title="${SCENARIOS[s].text}">${s}</th>`).join('')}</tr>`;
+  $('matrix').innerHTML = ids.map((id) => `<tr><th scope="row">${INTERVENTIONS[id].short}</th>${cols.map((s) => { const r = by[s][id]; return `<td class="c ${r.cls}" title="Escenario ${s}: ${L[r.cls]}, mediana ${r.median}"><span aria-hidden="true">${r.cls} ${r.median}</span><span class="sr-only">${L[r.cls]}, mediana ${r.median}</span></td>`; }).join('')}</tr>`).join('');
+}
+filter.addEventListener('change', renderMatrix);
+renderMatrix();
 $('scenario-list').innerHTML = [1, 2, 3, 4].map((c) => `<h3>Categoría ${c}. ${CATEGORIES[c]}</h3><ul>${order.filter((s) => SCENARIOS[s].cat === c).map((s) => `<li><strong>${s}.</strong> ${SCENARIOS[s].text}</li>`).join('')}</ul>`).join('');
 
 const ST = { publicado: 'Publicado por el grupo', guia: 'Guía; pendiente de revisión por el grupo', grupo: 'Dato del grupo (nov. 2026)' };

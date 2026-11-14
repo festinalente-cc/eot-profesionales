@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Evidencia · GCEOT</title>
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-  <script src="../assets/js/theme.js?v=5"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css?v=5">
+  <script src="../assets/js/theme.js?v=6"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css?v=6">
 </head>
 <body data-root="../" data-page="evidencia">
   <div id="site-header"></div>
@@ -33,9 +33,11 @@
       <p>De los 238 pares, 49 resultaron apropiados (33 de ellos necesarios), 145 inapropiados y 44 inciertos, 4 de estos por desacuerdo.</p>
 
       <h2>Calificaciones del panel por escenario</h2>
-      <div class="legend"><span class="N">Necesaria *</span><span class="A">Apropiada</span><span class="U">Incierta († por desacuerdo)</span><span class="I">Inapropiada</span></div>
+      <label class="field no-print">Mostrar escenarios de
+        <select id="matrix-filter" style="width:100%;max-width:34rem"><option value="0">Todas las categorías</option></select></label>
+      <div class="legend"><span class="N">N · Necesaria</span><span class="A">A · Apropiada</span><span class="U">U · Incierta</span><span class="U">D · Incierta por desacuerdo</span><span class="I">I · Inapropiada</span></div>
       <div class="table-wrap"><table class="matrix"><thead id="matrix-head"></thead><tbody id="matrix"></tbody></table></div>
-      <p class="small muted" style="margin-top:.6rem">Mediana del panel en la segunda ronda. Las columnas son los escenarios, agrupados por categoría.</p>
+      <p class="small muted" style="margin-top:.6rem">Cada celda muestra la categoría (letra) y la mediana del panel en la segunda ronda. Las columnas son los escenarios, agrupados por categoría.</p>
       <details><summary>Ver los 14 escenarios</summary><div id="scenario-list"></div></details>
 
       <h2>Comparación de terapias</h2>
@@ -45,6 +47,9 @@
       <h2 id="criterios">Puntos de corte y definiciones</h2>
       <div class="table-wrap"><table><thead><tr><th scope="col">Criterio</th><th scope="col">Valor</th><th scope="col">Fuente</th><th scope="col">Estado</th><th scope="col">Se usa en</th></tr></thead><tbody id="criteria"></tbody></table></div>
 
+      <h2 id="estandares">Estándares de cuidado <span class="tag draft">En desarrollo</span></h2>
+      <p>El grupo adelanta un consenso formal para definir los estándares de cuidado en adultos en Colombia. Se publicarán cuando el panel los apruebe. <a href="../estandares/">Ver el estado</a>.</p>
+
       <h2>Guías de referencia</h2>
       <ul>
         <li><a href="https://doi.org/10.1530/EJE-21-0479">Bartalena L, et al. The 2021 EUGOGO clinical practice guidelines for the medical management of Graves' orbitopathy. Eur J Endocrinol. 2021;185(4):G43-G67.</a></li>
@@ -52,11 +57,11 @@
       </ul>
 
       <h2>Historial de versiones</h2>
-      <ul><li><strong>0.2, noviembre de 2026.</strong> Calculadora de calidad de vida (GO-QoL), accesos directos en la portada, selector de tema e identidad visual.</li><li><strong>0.1, noviembre de 2026.</strong> Primera versión para revisión del grupo.</li></ul>
+      <ul><li><strong>0.3, noviembre de 2026.</strong> Las herramientas no interpretan hasta confirmar la evaluación; filtro y letras en la matriz; estándares dentro de Evidencia; se retira la ficha de ejemplo del directorio.</li><li><strong>0.2, noviembre de 2026.</strong> Calculadora de calidad de vida (GO-QoL), accesos directos en la portada, selector de tema e identidad visual.</li><li><strong>0.1, noviembre de 2026.</strong> Primera versión para revisión del grupo.</li></ul>
     </div>
-    <script type="module" src="../assets/js/evidencia.js?v=5"></script>
+    <script type="module" src="../assets/js/evidencia.js?v=6"></script>
   </main>
   <div id="site-footer"></div>
-  <script type="module" src="../assets/js/site.js?v=5"></script>
+  <script type="module" src="../assets/js/site.js?v=6"></script>
 </body>
 </html>

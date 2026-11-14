@@ -71,3 +71,18 @@ export function goqolChange(before, after) {
   const d = Math.round((after - before) * 10) / 10;
   return { delta: d, meaningful: Math.abs(d) >= GOQOL_CHANGE, direction: d > 0 ? 'mejora' : d < 0 ? 'empeora' : 'igual' };
 }
+
+// Estados de evaluación: una herramienta sin tocar no es una evaluación sin hallazgos.
+// No se interpreta el resultado hasta que el profesional confirma que evaluó todos los ítems.
+export function casState(confirmed, base, followup = null) {
+  const r = cas(base, followup);
+  if (!confirmed) return { status: r.score > 0 ? 'parcial' : 'pendiente', score: r.score, max: r.max };
+  return { status: 'completa', ...r };
+}
+// Un hallazgo que amenaza la visión se informa siempre, aunque falte confirmar el resto.
+export function severityState(confirmed, findings) {
+  const r = severity(findings);
+  if (r.level === 'amenaza-vision') return { status: 'completa', ...r };
+  if (!confirmed) return { status: r.count > 0 ? 'parcial' : 'pendiente', count: r.count };
+  return { status: 'completa', ...r };
+}

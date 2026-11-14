@@ -1,4 +1,4 @@
-import { CAS_ITEMS, CAS_FOLLOWUP, cas, severity, cumulativeDose, MP_PRESETS, MP_MAX_G, goqol, goqolChange, GOQOL_CHANGE } from '../../src/logic/tools.js';
+import { CAS_ITEMS, CAS_FOLLOWUP, cas, severity, cumulativeDose, MP_PRESETS, MP_MAX_G, goqol, goqolChange, GOQOL_CHANGE, casState, severityState } from '../../src/logic/tools.js';
 const $ = (id) => document.getElementById(id);
 const check = (name, i, text) => `<label class="opt"><input type="checkbox" name="${name}" value="${i}"><span>${text}</span></label>`;
 
@@ -9,20 +9,26 @@ function renderCas() {
   const fu = $('cas-followup').checked;
   $('cas-fu-box').hidden = !fu;
   const marks = (name, n) => Array.from({ length: n }, (_, i) => document.querySelector(`input[name="${name}"][value="${i}"]`).checked);
-  const r = cas(marks('cas', 7), fu ? marks('casfu', 3) : null);
-  $('cas-out').className = `result ${r.active ? 'N' : 'I'}`;
-  $('cas-out').textContent = `CAS ${r.score} de ${r.max}: enfermedad ${r.active ? 'activa' : 'inactiva'} (umbral ≥ ${r.threshold}).`;
+  const r = casState($('cas-ok').checked, marks('cas', 7), fu ? marks('casfu', 3) : null);
+  const out = $('cas-out');
+  if (r.status === 'pendiente') { out.className = 'result pending'; out.textContent = 'Pendiente de evaluación. Marque lo presente y confirme que evaluó todos los ítems.'; return; }
+  if (r.status === 'parcial') { out.className = 'result pending'; out.textContent = `${r.score} de ${r.max} marcados. Confirme que evaluó todos los ítems para ver la interpretación.`; return; }
+  out.className = `result ${r.active ? 'N' : 'I'}`;
+  out.textContent = `CAS ${r.score} de ${r.max}: enfermedad ${r.active ? 'activa' : 'inactiva'} (umbral ≥ ${r.threshold}).`;
 }
 $('cas-form').addEventListener('change', renderCas); renderCas();
 
 // Gravedad
 function renderSev() {
   const c = (id) => $(id).checked;
-  const r = severity({ lidRetraction2mm: c('sv-lid'), softTissueModerate: c('sv-soft'), exophthalmos3mm: c('sv-exo'), diplopia: $('sv-dip').value, opticNeuropathy: c('sv-don'), cornealBreakdown: c('sv-cor') });
+  const r = severityState($('sv-ok').checked, { lidRetraction2mm: c('sv-lid'), softTissueModerate: c('sv-soft'), exophthalmos3mm: c('sv-exo'), diplopia: $('sv-dip').value, opticNeuropathy: c('sv-don'), cornealBreakdown: c('sv-cor') });
+  const out = $('sev-out'); out.style.cssText = '';
+  if (r.status === 'pendiente') { out.className = 'result pending'; out.textContent = 'Pendiente de evaluación. Marque los hallazgos y confirme que los evaluó todos.'; return; }
+  if (r.status === 'parcial') { out.className = 'result pending'; out.textContent = `${r.count} de 4 criterios marcados. Confirme que evaluó todos los hallazgos para ver la clasificación.`; return; }
   const text = { leve: 'Leve', 'moderada-grave': 'Moderada a grave', 'amenaza-vision': 'Con amenaza para la visión: urgencia oftalmológica' }[r.level];
-  $('sev-out').className = `result ${r.level === 'leve' ? 'I' : r.level === 'moderada-grave' ? 'A' : 'chip'}`;
-  if (r.level === 'amenaza-vision') $('sev-out').style.cssText = 'background:var(--urg-bg);color:var(--urg)'; else $('sev-out').style.cssText = '';
-  $('sev-out').textContent = text + (r.count !== null ? ` (${r.count} de 4 criterios; moderada a grave con 2 o más).` : '.');
+  out.className = `result ${r.level === 'leve' ? 'I' : r.level === 'moderada-grave' ? 'A' : 'chip'}`;
+  if (r.level === 'amenaza-vision') out.style.cssText = 'background:var(--urg-bg);color:var(--urg)';
+  out.textContent = text + (r.count !== null ? ` (${r.count} de 4 criterios; moderada a grave con 2 o más).` : '.');
 }
 $('sev-form').addEventListener('change', renderSev); renderSev();
 

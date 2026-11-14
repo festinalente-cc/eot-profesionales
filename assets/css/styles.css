@@ -129,3 +129,11 @@ td.c { text-align: center; font-weight: 700; }
 /* Encabezado: marca y tema en la primera fila, menú en la segunda */
 .site-header .theme-btn { order: 2; margin-left: auto; }
 .site-header .nav { order: 3; width: 100%; margin-left: -.7rem; }
+
+/* v0.3 */
+.result.pending { background: transparent; border: 2px dashed var(--border-strong); color: var(--muted); font-weight: 600; }
+.opt.confirm { margin-top: .4rem; border-top: 1px solid var(--border); padding-top: .8rem; border-radius: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.matrix td.c { white-space: nowrap; font-size: .85rem; }
+.hero-arc { right: -150px; width: 420px; height: 420px; }
+.site-header .theme-btn { font-size: .8rem; font-weight: 500; padding: .25rem .6rem; color: var(--muted); border-color: var(--border); }

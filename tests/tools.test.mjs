@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { cas, severity, cumulativeDose, MP_PRESETS, goqol, goqolChange } from '../src/logic/tools.js';
+import { cas, severity, cumulativeDose, MP_PRESETS, goqol, goqolChange, casState, severityState } from '../src/logic/tools.js';
 
 const f = (n, len) => Array.from({ length: len }, (_, i) => i < n);
 
@@ -63,4 +63,21 @@ test('GO-QoL: cambio relevante desde 8 puntos', () => {
   assert.equal(goqolChange(50, 57.9).meaningful, false);
   assert.deepEqual(goqolChange(50, 58), { delta: 8, meaningful: true, direction: 'mejora' });
   assert.equal(goqolChange(60, 50).direction, 'empeora');
+});
+
+test('CAS sin confirmar no se interpreta', () => {
+  assert.deepEqual(casState(false, f(0, 7)), { status: 'pendiente', score: 0, max: 7 });
+  const p = casState(false, f(4, 7));
+  assert.equal(p.status, 'parcial'); assert.equal(p.active, undefined);
+  const c = casState(true, f(0, 7));
+  assert.equal(c.status, 'completa'); assert.equal(c.active, false);
+  assert.equal(casState(true, f(3, 7)).active, true);
+});
+test('gravedad sin confirmar no se interpreta, salvo amenaza para la visión', () => {
+  const base = { lidRetraction2mm: false, softTissueModerate: false, exophthalmos3mm: false, diplopia: 'no', opticNeuropathy: false, cornealBreakdown: false };
+  assert.equal(severityState(false, base).status, 'pendiente');
+  assert.equal(severityState(false, base).level, undefined);
+  assert.equal(severityState(false, { ...base, lidRetraction2mm: true, exophthalmos3mm: true }).status, 'parcial');
+  assert.equal(severityState(true, base).level, 'leve');
+  assert.equal(severityState(false, { ...base, opticNeuropathy: true }).level, 'amenaza-vision');
 });
