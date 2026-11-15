@@ -1,4 +1,5 @@
 // Encabezado, navegación y pie comunes.
+import { logoSmall, logoLarge } from './logo.js';
 const root = document.body.dataset.root || './';
 const page = document.body.dataset.page || '';
 const NAV = [
@@ -13,7 +14,7 @@ const logo = '<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" heigh
 document.getElementById('site-header').innerHTML = `
   <div class="preview">Versión preliminar para revisión del grupo. No difundir.</div>
   <header class="site-header"><div class="container">
-    <a class="brand" href="${root}">${logo}<span>GCEOT<small>Enfermedad ocular tiroidea · Profesionales</small></span></a>
+    <a class="brand" href="${root}"><span>${logoSmall(26)}<small>Enfermedad ocular tiroidea · Profesionales</small></span></a>
     <nav class="nav" aria-label="Principal">
       ${NAV.map(([id, label, href]) => `<a href="${root}${href}"${id === page ? ' aria-current="page"' : ''}>${label}</a>`).join('')}
     </nav>
@@ -22,7 +23,7 @@ document.getElementById('site-header').innerHTML = `
 
 document.getElementById('site-footer').innerHTML = `
   <footer class="site-footer"><div class="container">
-    <p><strong>Grupo Colombiano de Enfermedad Ocular Tiroidea (GCEOT).</strong> Contenido para profesionales de la salud. Apoya la decisión clínica y no la sustituye. Este sitio no recoge ni envía datos.</p>
+    <p>${logoSmall(16)}<strong>Grupo Colombiano de Enfermedad Ocular Tiroidea.</strong> Contenido para profesionales de la salud. Apoya la decisión clínica y no la sustituye. Este sitio no recoge ni envía datos.</p>
     <p>Financiación y conflictos de interés: ver <a href="${root}grupo/">El grupo</a>. Secretaría técnica: Festina Lente.</p>
     <p>Versión 0.5 · noviembre de 2026</p>
   </div></footer>`;
@@ -42,3 +43,6 @@ themeBtn.addEventListener('click', () => {
   paintTheme();
 });
 if (window.eotTheme) paintTheme(); else themeBtn.hidden = true;
+
+const lockup = document.getElementById('gceot-lockup');
+if (lockup) lockup.innerHTML = logoLarge(`${root}assets/img/iris-v2.webp`);
