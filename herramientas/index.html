@@ -6,8 +6,8 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Herramientas · GCEOT</title>
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-  <script src="../assets/js/theme.js?v=12"></script>
-  <link rel="stylesheet" href="../assets/css/styles.css?v=12">
+  <script src="../assets/js/theme.js?v=13"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css?v=13">
 </head>
 <body data-root="../" data-page="herramientas">
   <div id="site-header"></div>
@@ -16,7 +16,7 @@
       <div class="page-head"><h1>Herramientas</h1>
       <p class="muted">Para evaluar a un paciente de principio a fin, use la <a href="../ruta/">evaluación y ruta</a>, que reúne estas medidas en un solo recorrido. Todo se calcula en su navegador. No se guarda ni se envía ningún dato. Los puntos de corte y sus fuentes están en <a href="../evidencia/#criterios">Evidencia</a>.</p></div>
 
-      <h2 id="cas">Puntaje de actividad clínica (CAS)</h2>
+      <h2 id="cas"><span class="icon" data-icon="actividad"></span>Puntaje de actividad clínica (CAS)</h2>
       <form id="cas-form">
         <fieldset><legend>Marque lo presente</legend><div id="cas-base"></div></fieldset>
         <label class="opt"><input type="checkbox" id="cas-followup"><span>Visita de seguimiento: añadir los tres ítems de cambio en 1 a 3 meses</span></label>
@@ -25,7 +25,7 @@
       </form>
       <div id="cas-out" class="result" aria-live="polite"></div>
 
-      <h2 id="gravedad">Gravedad (EUGOGO)</h2>
+      <h2 id="gravedad"><span class="icon" data-icon="gravedad"></span>Gravedad (EUGOGO)</h2>
       <form id="sev-form">
         <fieldset><legend>Hallazgos</legend>
           <label class="opt"><input type="checkbox" id="sv-lid"><span>Retracción palpebral ≥ 2 mm</span></label>
@@ -48,7 +48,7 @@
       <div id="sev-out" class="result" aria-live="polite"></div>
       <p class="small muted" style="margin-top:.6rem">El consenso del grupo llama «grave» a lo que EUGOGO denomina «con amenaza para la visión». Con el resultado, continúe en la <a href="../ruta/">ruta de tratamiento</a>.</p>
 
-      <h2 id="dosis">Dosis acumulada de metilprednisolona intravenosa</h2>
+      <h2 id="dosis"><span class="icon" data-icon="dosis"></span>Dosis acumulada de metilprednisolona intravenosa</h2>
       <form id="dose-form">
         <div class="actions no-print" style="margin:0 0 1rem">
           <button type="button" class="btn btn-ghost" id="p-std">Esquema estándar (4,5 g)</button>
@@ -67,9 +67,9 @@
       <div id="dose-out" class="result" aria-live="polite"></div>
       <p class="small muted" style="margin-top:.6rem">Esquemas y máximo de 8 g por ciclo según EUGOGO 2021. Las infusiones son semanales.</p>
 
-      <h2 id="calidad-de-vida">Calidad de vida (GO-QoL)</h2>
+      <h2 id="calidad-de-vida"><span class="icon" data-icon="calidad"></span>Calidad de vida (GO-QoL)</h2>
       <p id="goqol-notice"></p>
-      <div class="note warn"><p><strong>Preguntas en pantalla: pendiente.</strong> EUGOGO publica dos versiones en español del formulario. Las preguntas se mostrarán aquí cuando el grupo elija la versión y EUGOGO confirme que puede reproducirse en la web.</p></div>
+      <div class="note warn"><p><strong>Preguntas en pantalla: en preparación.</strong> EUGOGO autorizó mostrar las 16 preguntas en este sitio. Aparecerán aquí cuando el grupo elija entre las dos versiones en español; mientras tanto se registran por número.</p></div>
       <form id="goqol-form">
         <fieldset><legend>Función visual (preguntas 1 a 8)</legend><div id="goqol-v" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))"></div></fieldset>
         <fieldset><legend>Apariencia (preguntas 9 a 16)</legend><div id="goqol-a" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))"></div></fieldset>
@@ -84,9 +84,9 @@
       <div id="goqol-out" class="result" aria-live="polite" style="margin-top:1rem"></div>
       <p class="small muted" style="margin-top:.6rem">Cada subescala va de 0 (mayor impacto) a 100 (sin impacto). Las preguntas sin respuesta o que no aplican, como conducir para quien no conduce, no cuentan. Terwee CB, et al. Br J Ophthalmol. 1998;82(7):773-779.</p>
     </div>
-    <script type="module" src="../assets/js/herramientas.js?v=12"></script>
+    <script type="module" src="../assets/js/herramientas.js?v=13"></script>
   </main>
   <div id="site-footer"></div>
-  <script type="module" src="../assets/js/site.js?v=12"></script>
+  <script type="module" src="../assets/js/site.js?v=13"></script>
 </body>
 </html>

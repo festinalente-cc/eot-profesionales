@@ -7,11 +7,11 @@ const O = { cx: 2421.0, cy: 350.0, r: 361.5 };
 /** Versión compacta, con la O simplificada en anillos: encabezado y pie. */
 export function logoSmall(height = 24) {
   const k = O.r;
-  return `<svg class="gceot-logo" viewBox="${VB}" height="${height}" role="img" aria-label="GCEOT"><path fill="currentColor" d="${LETTERS}"/><circle cx="${O.cx}" cy="${O.cy}" r="${k}" fill="#22998f"/><circle cx="${O.cx}" cy="${O.cy}" r="${(k * 0.6).toFixed(1)}" fill="#2f6577" stroke="#e8b23a" stroke-width="${(k * 0.1).toFixed(1)}"/><circle cx="${O.cx}" cy="${O.cy}" r="${(k * 0.32).toFixed(1)}" fill="#05090a"/></svg>`;
+  return `<svg class="gceot-logo" viewBox="${VB}" height="${height}" role="img" aria-label="GCEOT"><path fill="currentColor" d="${LETTERS}"/><circle cx="${O.cx}" cy="${O.cy}" r="${k}" fill="#5f9a63"/><circle cx="${O.cx}" cy="${O.cy}" r="${(k * 0.6).toFixed(1)}" fill="#e9b833" stroke="#4a6f3a" stroke-width="${(k * 0.1).toFixed(1)}"/><circle cx="${O.cx}" cy="${O.cy}" r="${(k * 0.32).toFixed(1)}" fill="#080909"/></svg>`;
 }
 
-/** Versión grande, con el iris detallado. irisUrl: ruta a assets/img/iris-v2.webp. */
+/** Versión grande, con el iris dibujado del logo. irisUrl: ruta a assets/img/iris-logo.webp. */
 export function logoLarge(irisUrl, name = true) {
-  const R = O.r * 1.06, s = R * 2; // la imagen trae un margen transparente; se amplía para que el iris llene la O
-  return `<div class="gceot-lockup"><svg class="gceot-logo" viewBox="${VB}" role="img" aria-label="GCEOT"><path fill="currentColor" d="${LETTERS}"/><image href="${irisUrl}" x="${O.cx - R}" y="${O.cy - R}" width="${s}" height="${s}"/><circle cx="${O.cx}" cy="${O.cy}" r="${O.r}" fill="none" stroke="currentColor" stroke-opacity=".22" stroke-width="6"/></svg>${name ? '<p class="gceot-name">Grupo Colombiano de<br>Enfermedad Ocular Tiroidea</p>' : ''}</div>`;
+  const s = O.r * 2;
+  return `<div class="gceot-lockup"><svg class="gceot-logo" viewBox="${VB}" role="img" aria-label="GCEOT"><path fill="currentColor" d="${LETTERS}"/><image href="${irisUrl}" x="${O.cx - O.r}" y="${O.cy - O.r}" width="${s}" height="${s}"/></svg>${name ? '<p class="gceot-name">Grupo Colombiano de<br>Enfermedad Ocular Tiroidea</p>' : ''}</div>`;
 }

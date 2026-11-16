@@ -6,5 +6,5 @@ export const GOQOL_ITEMS = [
   '', '', '', '', '', '', '', '',   // 9 a 16: apariencia
 ];
 export const GOQOL_VERSION = ''; // p. ej. "Versión en español, <fuente y año>, usada con autorización"
-export const GOQOL_NOTICE = 'El GO-QoL fue desarrollado por Terwee y colaboradores (Br J Ophthalmol 1998;82:773-779) y lo custodia EUGOGO, que lo ofrece sin costo para uso clínico, académico y de investigación. El paciente responde el formulario oficial en español; aquí se registran sus respuestas por número de pregunta.';
+export const GOQOL_NOTICE = 'El GO-QoL fue desarrollado por Terwee y colaboradores (Br J Ophthalmol 1998;82:773-779) y lo custodia EUGOGO, que lo ofrece sin costo para uso clínico, académico y de investigación y autorizó su uso en este sitio (noviembre de 2026).';
 export const GOQOL_URL = 'https://www.eugogo.eu/what-do-we-offer/downloads/';

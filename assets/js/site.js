@@ -1,5 +1,6 @@
 // Encabezado, navegación y pie comunes.
 import { logoSmall, logoLarge } from './logo.js';
+import { paintIcons } from './icons.js';
 const root = document.body.dataset.root || './';
 const page = document.body.dataset.page || '';
 const NAV = [
@@ -9,7 +10,7 @@ const NAV = [
   ['directorio', 'Directorio', 'directorio/'],
   ['grupo', 'El grupo', 'grupo/'],
 ];
-const logo = '<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#06313a"/><circle cx="32" cy="32" r="23.5" fill="#22998f"/><circle cx="32" cy="32" r="14" fill="#2f6577" stroke="#e8b23a" stroke-width="2.5"/><circle cx="32" cy="32" r="7.5" fill="#05090a"/></svg>';
+const logo = '<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#06313a"/><circle cx="32" cy="32" r="23.5" fill="#5f9a63"/><circle cx="32" cy="32" r="14" fill="#e9b833" stroke="#4a6f3a" stroke-width="2.5"/><circle cx="32" cy="32" r="7.5" fill="#080909"/></svg>';
 
 document.getElementById('site-header').innerHTML = `
   <div class="preview">Versión preliminar para revisión del grupo. No difundir.</div>
@@ -45,4 +46,6 @@ themeBtn.addEventListener('click', () => {
 if (window.eotTheme) paintTheme(); else themeBtn.hidden = true;
 
 const lockup = document.getElementById('gceot-lockup');
-if (lockup) lockup.innerHTML = logoLarge(`${root}assets/img/iris-v2.webp`);
+if (lockup) lockup.innerHTML = logoLarge(`${root}assets/img/iris-logo.webp`);
+
+paintIcons();
